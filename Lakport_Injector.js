@@ -1,4 +1,4 @@
-
+var Infant ="0";
 var Usermob = '8075488260';
 let chkur=window.location.href;
 if(chkur.includes("Test_LoginPage.aspx")){
