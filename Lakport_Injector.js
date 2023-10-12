@@ -1,32 +1,6 @@
-var UserEmail = 'androth1@maildrop.cc';var UserPass = '6YRXMWPS'; var Usermob = '8075488260';
-var direct =false;var music=true;
 
-var Infant ="0";
-var Iname ="Ahla Lujain P";
-var Iage ="12";
-var Igen1 ="Female";
-
-//And Fayas-2 & 2020 Jalal-2 //i5-Typing-1
-var Ship= 'Kavaratti';
-var Src = 'Kavaratti';
-var Dst = 'Agatti';
-var Clss = 'Bunk';
-var Passno = '2';
-var Name1 = 'Mohd Shafi';
-var Age1 = '32';
-var Gender1 = 'Male'; 
-var PassType1 = 'Islander'; 
-var Adhaar1 = '0000';
-var PermitNo1 = '';
-var Name2 = 'Saleemunnisa KK';
-var Age2 = '38';
-var Gender2 = 'Male'; 
-var PassType2 = 'Islander'; 
-var Adhaar2 = '0010';
-var PermitNo2 = '';
-
+var Usermob = '8075488260';
 let chkur=window.location.href;
-var pos='0';
 if(chkur.includes("Test_LoginPage.aspx")){
 var timeout = setInterval(BtnClick, 100);
 function BtnClick() {
