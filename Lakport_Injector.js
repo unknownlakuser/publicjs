@@ -18,6 +18,7 @@ if(direct){document.getElementById("ContentPlaceHolder1_RbDirIndir_1").checked =
  }
 }
 if(chkur.includes("Test_ship_Ticket_Public.aspx")){
+ var timeout = setInterval(rfsClk, 150000);  function rfsClk() { window.location.href = chkur; }
  var timeout = setInterval(BtnClick2, -10); document.getElementById('ContentPlaceHolder1_txt_MobileNumber').value= Usermob;
  document.getElementById('ContentPlaceHolder1_shippassengers_TextBox').value= Passno;
  document.getElementById('ContentPlaceHolder1_txtInfant').value= Infant;
