@@ -65,4 +65,5 @@ if(chkur.includes("pg_request.aspx")){
 
 }
 
-var x = document.getElementsByTagName('p')[0].innerHTML;if(x.includes("Under")||x.includes("Try")||x.includes("maintenance")){window.location.reload();}
+var timeout = setInterval(rfrError, 1000);
+function rfrError(){var x = document.getElementsByTagName('p')[0].innerHTML;if(x.includes("Under")||x.includes("Try")||x.includes("maintenance")){window.location.reload();}}
