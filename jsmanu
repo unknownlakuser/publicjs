@@ -147,7 +147,7 @@ function processCaptchaForTestLoginPage(retryCount = 0) {
         } else {
             if (retryCount < 75) { // Retry limit to avoid infinite loops
                 console.log('Retrying CAPTCHA recognition...');
-                if(retryCount%2 === 0){ document.getElementById('ContentPlaceHolder1_ImageButton').click();}else{window.location.reload();}
+                if(retryCount%3 === 0){ window.location.reload();}else{document.getElementById('ContentPlaceHolder1_ImageButton').click();}
                 setTimeout(() => processCaptchaForTestLoginPage(retryCount + 1), 2500); // Retry after 2.5 seconds
             } else {
                 console.error('Failed to recognize CAPTCHA after several attempts.');
@@ -158,7 +158,7 @@ function processCaptchaForTestLoginPage(retryCount = 0) {
         console.error('OCR Error:', error);
         if (retryCount < 75) { // Retry limit to avoid infinite loops
             console.log('Retrying CAPTCHA recognition...');
-            if(retryCount%2 === 0){ document.getElementById('ContentPlaceHolder1_ImageButton').click();}else{window.location.reload();}
+            if(retryCount%3 === 0){ window.location.reload();}else{document.getElementById('ContentPlaceHolder1_ImageButton').click();}
             setTimeout(() => processCaptchaForTestLoginPage(retryCount + 1), 2500); // Retry after 2.5 seconds
         } else {
             console.error('Failed to recognize CAPTCHA after several attempts.');
