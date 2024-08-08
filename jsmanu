@@ -87,7 +87,7 @@ function processCaptchaForShipOnlineUserlogin(retryCount = 0) {
             securityCodeInput.value = cleanedText;
             document.getElementById('ContentPlaceHolder1_btnLogin1').click();
         } else {
-            if (retryCount < 10) { // Retry limit to avoid infinite loops
+            if (retryCount < 50) { // Retry limit to avoid infinite loops
                 console.log('Retrying CAPTCHA recognition...');
                 document.getElementById('ContentPlaceHolder1_ImageButton1').click();
                 setTimeout(() => processCaptchaForShipOnlineUserlogin(retryCount + 1), 2000); // Retry after 2 seconds
@@ -98,7 +98,7 @@ function processCaptchaForShipOnlineUserlogin(retryCount = 0) {
     })
     .catch(error => {
         console.error('OCR Error:', error);
-        if (retryCount < 10) { // Retry limit to avoid infinite loops
+        if (retryCount < 50) { // Retry limit to avoid infinite loops
             console.log('Retrying CAPTCHA recognition...');
             document.getElementById('ContentPlaceHolder1_ImageButton1').click();
             setTimeout(() => processCaptchaForShipOnlineUserlogin(retryCount + 1), 2000); // Retry after 2 seconds
@@ -145,7 +145,7 @@ function processCaptchaForTestLoginPage(retryCount = 0) {
             proceedButton.click();
             setTimeout(() => processCaptchaForTestLoginPage(0), 2500); // Retry after 2.5 seconds
         } else {
-            if (retryCount < 10) { // Retry limit to avoid infinite loops
+            if (retryCount < 50) { // Retry limit to avoid infinite loops
                 console.log('Retrying CAPTCHA recognition...');
                 document.getElementById('ContentPlaceHolder1_ImageButton').click();
                 setTimeout(() => processCaptchaForTestLoginPage(retryCount + 1), 2500); // Retry after 2.5 seconds
@@ -156,8 +156,9 @@ function processCaptchaForTestLoginPage(retryCount = 0) {
     })
     .catch(error => {
         console.error('OCR Error:', error);
-        if (retryCount < 10) { // Retry limit to avoid infinite loops
+        if (retryCount < 50) { // Retry limit to avoid infinite loops
             console.log('Retrying CAPTCHA recognition...');
+            document.getElementById('ContentPlaceHolder1_ImageButton').click();
             setTimeout(() => processCaptchaForTestLoginPage(retryCount + 1), 2500); // Retry after 2.5 seconds
         } else {
             console.error('Failed to recognize CAPTCHA after several attempts.');
@@ -206,7 +207,7 @@ function processCaptchaForPgRequest(retryCount = 0) {
                 console.error('Failed to evaluate mathematical expression.');
             }
         } else {
-            if (retryCount < 10) { // Retry limit to avoid infinite loops
+            if (retryCount < 50) { // Retry limit to avoid infinite loops
                 console.log('Retrying CAPTCHA recognition...');
                 setTimeout(() => processCaptchaForPgRequest(retryCount + 1), 4500); // Retry after 4.5 seconds
             } else {
@@ -216,7 +217,7 @@ function processCaptchaForPgRequest(retryCount = 0) {
     })
     .catch(error => {
         console.error('OCR Error:', error);
-        if (retryCount < 10) { // Retry limit to avoid infinite loops
+        if (retryCount < 50) { // Retry limit to avoid infinite loops
             console.log('Retrying CAPTCHA recognition...');
             setTimeout(() => processCaptchaForPgRequest(retryCount + 1), 4500); // Retry after 4.5 seconds
         } else {
