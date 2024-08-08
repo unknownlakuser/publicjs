@@ -145,9 +145,9 @@ function processCaptchaForTestLoginPage(retryCount = 0) {
             proceedButton.click();
             setTimeout(() => processCaptchaForTestLoginPage(0), 2500); // Retry after 2.5 seconds
         } else {
-            if (retryCount < 50) { // Retry limit to avoid infinite loops
+            if (retryCount < 75) { // Retry limit to avoid infinite loops
                 console.log('Retrying CAPTCHA recognition...');
-                document.getElementById('ContentPlaceHolder1_ImageButton').click();
+                if(retryCount%2 === 0){ document.getElementById('ContentPlaceHolder1_ImageButton').click();}else{window.location.reload();}
                 setTimeout(() => processCaptchaForTestLoginPage(retryCount + 1), 2500); // Retry after 2.5 seconds
             } else {
                 console.error('Failed to recognize CAPTCHA after several attempts.');
@@ -156,9 +156,9 @@ function processCaptchaForTestLoginPage(retryCount = 0) {
     })
     .catch(error => {
         console.error('OCR Error:', error);
-        if (retryCount < 50) { // Retry limit to avoid infinite loops
+        if (retryCount < 75) { // Retry limit to avoid infinite loops
             console.log('Retrying CAPTCHA recognition...');
-            document.getElementById('ContentPlaceHolder1_ImageButton').click();
+            if(retryCount%2 === 0){ document.getElementById('ContentPlaceHolder1_ImageButton').click();}else{window.location.reload();}
             setTimeout(() => processCaptchaForTestLoginPage(retryCount + 1), 2500); // Retry after 2.5 seconds
         } else {
             console.error('Failed to recognize CAPTCHA after several attempts.');
@@ -207,7 +207,7 @@ function processCaptchaForPgRequest(retryCount = 0) {
                 console.error('Failed to evaluate mathematical expression.');
             }
         } else {
-            if (retryCount < 50) { // Retry limit to avoid infinite loops
+            if (retryCount < 90) { // Retry limit to avoid infinite loops
                 console.log('Retrying CAPTCHA recognition...');
                 setTimeout(() => processCaptchaForPgRequest(retryCount + 1), 4500); // Retry after 4.5 seconds
             } else {
@@ -217,7 +217,7 @@ function processCaptchaForPgRequest(retryCount = 0) {
     })
     .catch(error => {
         console.error('OCR Error:', error);
-        if (retryCount < 50) { // Retry limit to avoid infinite loops
+        if (retryCount < 90) { // Retry limit to avoid infinite loops
             console.log('Retrying CAPTCHA recognition...');
             setTimeout(() => processCaptchaForPgRequest(retryCount + 1), 4500); // Retry after 4.5 seconds
         } else {
