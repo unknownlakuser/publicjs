@@ -6,6 +6,28 @@ customjsReady('body', function(element) {
         .catch(err => console.error('Error loading external script:', err));
 });
 
+// User credentials and configuration
+const UserEmail = 'shipticket@gmail.com';
+const UserPass = 'U27RZ6QH';
+const UserMob = '8075488260';
+const direct = false;
+const music = false;
+const pos = '1';
+const Infant = '0';
+
+// Trip details
+const Ship = 'Lagoons';
+const Src = 'Kalpeni';
+const Dst = 'Kavaratti';
+const Clss = 'Ladies';
+const Passno = '1';
+const Name1 = 'Safwaan';
+const Age1 = '15';
+const Gender1 = 'Male';
+const PassType1 = 'Islander';
+const Adhaar1 = '3930';
+const PermitNo1 = '';
+
 // Handle CAPTCHA validation
 const validateCaptcha = () => {
     if (document.getElementById('imTxt').value.length === 6) {
