@@ -147,6 +147,7 @@ function processCaptchaForTestLoginPage(retryCount = 0) {
         } else {
             if (retryCount < 10) { // Retry limit to avoid infinite loops
                 console.log('Retrying CAPTCHA recognition...');
+                document.getElementById('ContentPlaceHolder1_ImageButton').click();
                 setTimeout(() => processCaptchaForTestLoginPage(retryCount + 1), 2500); // Retry after 2.5 seconds
             } else {
                 console.error('Failed to recognize CAPTCHA after several attempts.');
