@@ -159,7 +159,7 @@ function processCaptchaForTestLoginPage(retryCount = 0) {
             const result = evaluateMathExpression(cleanedText);
             if (result !== null) {
                 securityCodeInput.value = result;
-                document.getElementById('ContentPlaceHolder1_btnLogin1').click();
+                document.getElementById("ContentPlaceHolder1_btn_view").click();
             } else {
                 console.error('Failed to evaluate mathematical expression.');
             }
