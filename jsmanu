@@ -59,17 +59,19 @@ function evaluateMathExpression(expression) {
     }
 }
 
+
+
 function processCaptchaForShipOnlineUserlogin(retryCount = 0) {
     if (typeof window.Tesseract === 'undefined') {
         console.error('Tesseract.js is not loaded.');
         return;
     }
 
-    const captchaImage = document.querySelector('img[src="Captcha.aspx"]');
-    const securityCodeInput = document.querySelector('input[id="ContentPlaceHolder1_txtimage1"]');
+    const captchaImage = document.getElementById('ContentPlaceHolder1_imgCaptcha');
+    const securityCodeInput = document.getElementById('ContentPlaceHolder1_txtCaptchaAnswer');
 
     if (!captchaImage || !securityCodeInput) {
-        console.error('CAPTCHA image or security code input field not found.');
+        console.error('CAPTCHA image or answer input field not found.');
         return;
     }
 
@@ -80,21 +82,30 @@ function processCaptchaForShipOnlineUserlogin(retryCount = 0) {
     canvas.height = captchaImage.height || 100;
 
     context.drawImage(captchaImage, 0, 0);
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    const targetColor = '#808080';
+    const updatedImageData = convertColorToWhite(imageData, targetColor);
+    context.putImageData(updatedImageData, 0, 0);
     const dataURL = canvas.toDataURL('image/png');
 
     window.Tesseract.recognize(dataURL, 'eng', {
         logger: info => console.log('OCR Progress:', info)
     })
     .then(({ data: { text } }) => {
-        let cleanedText = text.replace(/[^A-Za-z0-9]/g, '').trim();
-        if (cleanedText.length === 6) {
-            securityCodeInput.value = cleanedText;
-            document.getElementById('ContentPlaceHolder1_btnLogin1').click();
+        const cleanedText = cleanAndValidateText(text);
+        if (cleanedText) {
+            const result = evaluateMathExpression(cleanedText);
+            if (result !== null) {
+                securityCodeInput.value = result;
+                document.getElementById('ContentPlaceHolder1_btnLogin1').click();
+            } else {
+                console.error('Failed to evaluate mathematical expression.');
+            }
         } else {
-            if (retryCount < 50) { // Retry limit to avoid infinite loops
+            if (retryCount < 90) { // Retry limit to avoid infinite loops
                 console.log('Retrying CAPTCHA recognition...');
-                document.getElementById('ContentPlaceHolder1_ImageButton1').click();
-                setTimeout(() => processCaptchaForShipOnlineUserlogin(retryCount + 1), setRetryDelay()); // Retry after 2 seconds
+                if(retryCount%3 === 0){ window.location.reload();}else{document.getElementById('btnRefreshCaptcha').click();}
+                setTimeout(() => processCaptchaForPgRequest(retryCount + 1), setRetryDelay()); // 0.75Sec Retry after 3.5 seconds
             } else {
                 console.error('Failed to recognize CAPTCHA after several attempts.');
             }
@@ -102,10 +113,10 @@ function processCaptchaForShipOnlineUserlogin(retryCount = 0) {
     })
     .catch(error => {
         console.error('OCR Error:', error);
-        if (retryCount < 50) { // Retry limit to avoid infinite loops
+        if (retryCount < 90) { // Retry limit to avoid infinite loops
             console.log('Retrying CAPTCHA recognition...');
-            document.getElementById('ContentPlaceHolder1_ImageButton1').click();
-            setTimeout(() => processCaptchaForShipOnlineUserlogin(retryCount + 1), setRetryDelay()); // Retry after 2 seconds
+            if(retryCount%3 === 0){ window.location.reload();}else{document.getElementById('btnRefreshCaptcha').click();}
+            setTimeout(() => processCaptchaForPgRequest(retryCount + 1), setRetryDelay()); // Retry after 3.5 seconds
         } else {
             console.error('Failed to recognize CAPTCHA after several attempts.');
         }
@@ -118,12 +129,11 @@ function processCaptchaForTestLoginPage(retryCount = 0) {
         return;
     }
 
-    const captchaImage = document.querySelector("#form1 > div:nth-child(12) > div:nth-child(3) > div.row > div:nth-child(1) > div > div.row > div:nth-child(1) > table > tbody > tr > td:nth-child(1) > img");
-    const securityCodeInput = document.querySelector('input[id="ContentPlaceHolder1_txtimage"]');
-    const proceedButton = document.querySelector('input[id="ContentPlaceHolder1_btn_view"]');
+    const captchaImage = document.getElementById('ContentPlaceHolder1_imgCaptcha');
+    const securityCodeInput = document.getElementById('ContentPlaceHolder1_txtCaptchaAnswer');
 
-    if (!captchaImage || !securityCodeInput || !proceedButton) {
-        console.error('CAPTCHA image, security code input field, or proceed button not found.');
+    if (!captchaImage || !securityCodeInput) {
+        console.error('CAPTCHA image or answer input field not found.');
         return;
     }
 
@@ -135,24 +145,29 @@ function processCaptchaForTestLoginPage(retryCount = 0) {
 
     context.drawImage(captchaImage, 0, 0);
     const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    const bwImageData = convertToBlackAndWhite(imageData);
-    context.putImageData(bwImageData, 0, 0);
+    const targetColor = '#808080';
+    const updatedImageData = convertColorToWhite(imageData, targetColor);
+    context.putImageData(updatedImageData, 0, 0);
     const dataURL = canvas.toDataURL('image/png');
 
     window.Tesseract.recognize(dataURL, 'eng', {
         logger: info => console.log('OCR Progress:', info)
     })
     .then(({ data: { text } }) => {
-        const cleanedText = text.replace(/[^A-Za-z0-9]/g, '');
-        if (cleanedText.length === 6) {
-            securityCodeInput.value = cleanedText;
-            proceedButton.click();
-            setTimeout(() => processCaptchaForTestLoginPage(0), setRetryDelay()); // Retry after 2.5 seconds
+        const cleanedText = cleanAndValidateText(text);
+        if (cleanedText) {
+            const result = evaluateMathExpression(cleanedText);
+            if (result !== null) {
+                securityCodeInput.value = result;
+                document.getElementById('ContentPlaceHolder1_btnLogin1').click();
+            } else {
+                console.error('Failed to evaluate mathematical expression.');
+            }
         } else {
-            if (retryCount < 75) { // Retry limit to avoid infinite loops
+            if (retryCount < 90) { // Retry limit to avoid infinite loops
                 console.log('Retrying CAPTCHA recognition...');
-                if(retryCount%3 === 0){ window.location.reload();}else{document.getElementById('ContentPlaceHolder1_ImageButton').click();}
-                setTimeout(() => processCaptchaForTestLoginPage(retryCount + 1), setRetryDelay()); // Retry after 2.5 seconds
+                if(retryCount%3 === 0){ window.location.reload();}else{document.getElementById('btnRefreshCaptcha').click();}
+                setTimeout(() => processCaptchaForPgRequest(retryCount + 1), setRetryDelay()); // 0.75Sec Retry after 3.5 seconds
             } else {
                 console.error('Failed to recognize CAPTCHA after several attempts.');
             }
@@ -160,10 +175,10 @@ function processCaptchaForTestLoginPage(retryCount = 0) {
     })
     .catch(error => {
         console.error('OCR Error:', error);
-        if (retryCount < 75) { // Retry limit to avoid infinite loops
+        if (retryCount < 90) { // Retry limit to avoid infinite loops
             console.log('Retrying CAPTCHA recognition...');
-            if(retryCount%3 === 0){ window.location.reload();}else{document.getElementById('ContentPlaceHolder1_ImageButton').click();}
-            setTimeout(() => processCaptchaForTestLoginPage(retryCount + 1), setRetryDelay()); // Retry after 2.5 seconds
+            if(retryCount%3 === 0){ window.location.reload();}else{document.getElementById('btnRefreshCaptcha').click();}
+            setTimeout(() => processCaptchaForPgRequest(retryCount + 1), setRetryDelay()); // Retry after 3.5 seconds
         } else {
             console.error('Failed to recognize CAPTCHA after several attempts.');
         }
