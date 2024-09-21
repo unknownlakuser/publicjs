@@ -94,7 +94,7 @@ function processCaptchaForShipOnlineUserlogin(retryCount = 0) {
             if (retryCount < 50) { // Retry limit to avoid infinite loops
                 console.log('Retrying CAPTCHA recognition...');
                 document.getElementById('ContentPlaceHolder1_ImageButton1').click();
-                setTimeout(() => processCaptchaForShipOnlineUserlogin(retryCount + 1), 2000); // Retry after 2 seconds
+                setTimeout(() => processCaptchaForShipOnlineUserlogin(retryCount + 1), setRetryDelay()); // Retry after 2 seconds
             } else {
                 console.error('Failed to recognize CAPTCHA after several attempts.');
             }
@@ -105,7 +105,7 @@ function processCaptchaForShipOnlineUserlogin(retryCount = 0) {
         if (retryCount < 50) { // Retry limit to avoid infinite loops
             console.log('Retrying CAPTCHA recognition...');
             document.getElementById('ContentPlaceHolder1_ImageButton1').click();
-            setTimeout(() => processCaptchaForShipOnlineUserlogin(retryCount + 1), 2000); // Retry after 2 seconds
+            setTimeout(() => processCaptchaForShipOnlineUserlogin(retryCount + 1), setRetryDelay()); // Retry after 2 seconds
         } else {
             console.error('Failed to recognize CAPTCHA after several attempts.');
         }
@@ -147,7 +147,7 @@ function processCaptchaForTestLoginPage(retryCount = 0) {
         if (cleanedText.length === 6) {
             securityCodeInput.value = cleanedText;
             proceedButton.click();
-            setTimeout(() => processCaptchaForTestLoginPage(0), 2500); // Retry after 2.5 seconds
+            setTimeout(() => processCaptchaForTestLoginPage(0), setRetryDelay()); // Retry after 2.5 seconds
         } else {
             if (retryCount < 75) { // Retry limit to avoid infinite loops
                 console.log('Retrying CAPTCHA recognition...');
@@ -225,7 +225,7 @@ function processCaptchaForPgRequest(retryCount = 0) {
         if (retryCount < 90) { // Retry limit to avoid infinite loops
             console.log('Retrying CAPTCHA recognition...');
             if(retryCount%3 === 0){ window.location.reload();}else{document.getElementById('btnRefreshCaptcha').click();}
-            setTimeout(() => processCaptchaForPgRequest(retryCount + 1), 3500); // Retry after 3.5 seconds
+            setTimeout(() => processCaptchaForPgRequest(retryCount + 1), setRetryDelay()); // Retry after 3.5 seconds
         } else {
             console.error('Failed to recognize CAPTCHA after several attempts.');
         }
