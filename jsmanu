@@ -14,6 +14,10 @@ function convertColorToWhite(imageData, targetColor) {
     return imageData;
 }
 
+function setRetryDelay(minDelay = 750, maxDelay = 2500) {
+    return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+}
+
 function convertToBlackAndWhite(imageData) {
     const data = imageData.data;
 
@@ -148,7 +152,7 @@ function processCaptchaForTestLoginPage(retryCount = 0) {
             if (retryCount < 75) { // Retry limit to avoid infinite loops
                 console.log('Retrying CAPTCHA recognition...');
                 if(retryCount%3 === 0){ window.location.reload();}else{document.getElementById('ContentPlaceHolder1_ImageButton').click();}
-                setTimeout(() => processCaptchaForTestLoginPage(retryCount + 1), 2500); // Retry after 2.5 seconds
+                setTimeout(() => processCaptchaForTestLoginPage(retryCount + 1), setRetryDelay()); // Retry after 2.5 seconds
             } else {
                 console.error('Failed to recognize CAPTCHA after several attempts.');
             }
@@ -159,7 +163,7 @@ function processCaptchaForTestLoginPage(retryCount = 0) {
         if (retryCount < 75) { // Retry limit to avoid infinite loops
             console.log('Retrying CAPTCHA recognition...');
             if(retryCount%3 === 0){ window.location.reload();}else{document.getElementById('ContentPlaceHolder1_ImageButton').click();}
-            setTimeout(() => processCaptchaForTestLoginPage(retryCount + 1), 2500); // Retry after 2.5 seconds
+            setTimeout(() => processCaptchaForTestLoginPage(retryCount + 1), setRetryDelay()); // Retry after 2.5 seconds
         } else {
             console.error('Failed to recognize CAPTCHA after several attempts.');
         }
@@ -210,7 +214,7 @@ function processCaptchaForPgRequest(retryCount = 0) {
             if (retryCount < 90) { // Retry limit to avoid infinite loops
                 console.log('Retrying CAPTCHA recognition...');
                 if(retryCount%3 === 0){ window.location.reload();}else{document.getElementById('btnRefreshCaptcha').click();}
-                setTimeout(() => processCaptchaForPgRequest(retryCount + 1), 750); // 0.75Sec Retry after 3.5 seconds
+                setTimeout(() => processCaptchaForPgRequest(retryCount + 1), setRetryDelay()); // 0.75Sec Retry after 3.5 seconds
             } else {
                 console.error('Failed to recognize CAPTCHA after several attempts.');
             }
