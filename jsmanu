@@ -79,8 +79,8 @@ function processCaptchaForShipOnlineUserlogin(retryCount = 0) {
         return;
     }
 
-    const captchaImage = document.querySelector('img[src="Captcha.aspx"]');
-    const securityCodeInput = document.querySelector('input[id="ContentPlaceHolder1_txtimage1"]');
+    const captchaImage = document.getElementById('ContentPlaceHolder1_imgCaptcha');
+    const securityCodeInput = document.querySelector('input[id="ContentPlaceHolder1_txtCaptchaAnswer"]');
 
     if (!captchaImage || !securityCodeInput) {
         console.error('CAPTCHA image or security code input field not found.');
