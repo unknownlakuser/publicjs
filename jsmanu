@@ -223,7 +223,7 @@ function processCaptchaForPgRequest(retryCount = 0) {
             if (result !== null) {
                 answerInput.value = result;
                 if(wl){if(document.getElementById("lblWlist").innerHTML!="Waiting List"){
-                    //document.getElementById('btPayment').click(); //Change to replan
+                    document.getElementById('btnEdit').click(); //Change to replan
                 }}else{document.getElementById('btPayment').click();}
             } else {
                 console.error('Failed to evaluate mathematical expression.');
