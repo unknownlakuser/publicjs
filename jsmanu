@@ -1,3 +1,4 @@
+var wl=false;
 function convertColorToWhite(imageData, targetColor) {
     const data = imageData.data;
     const targetColorRGB = hexToRGB(targetColor);
@@ -221,7 +222,9 @@ function processCaptchaForPgRequest(retryCount = 0) {
             const result = evaluateMathExpression(cleanedText);
             if (result !== null) {
                 answerInput.value = result;
-                document.getElementById('btPayment').click();
+                if(wl){if(document.getElementById("lblWlist").innerHTML!="Waiting List"){
+                    //document.getElementById('btPayment').click(); //Change to replan
+                }}else{document.getElementById('btPayment').click();}
             } else {
                 console.error('Failed to evaluate mathematical expression.');
             }
