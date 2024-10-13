@@ -67,7 +67,7 @@ function processCaptchaForShipOnlineUserlogin(retryCount = 0) {
         console.error('Tesseract.js is not loaded.');
         return;
     }
-
+    await delay(4500);
     const captchaImage = document.getElementById('ContentPlaceHolder1_imgCaptcha');
     const securityCodeInput = document.getElementById('ContentPlaceHolder1_txtCaptchaAnswer');
 
@@ -192,7 +192,7 @@ function processCaptchaForPgRequest(retryCount = 0) {
         console.error('Tesseract.js is not loaded.');
         return;
     }
-
+    await delay(2500);
     const captchaImage = document.getElementById('imgCaptcha');
     const answerInput = document.getElementById('txtCaptchaAnswer');
 
