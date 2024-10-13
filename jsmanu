@@ -125,11 +125,12 @@ function processCaptchaForShipOnlineUserlogin(retryCount = 0) {
 }
 
 function processCaptchaForTestLoginPage(retryCount = 0) {
+    
     if (typeof window.Tesseract === 'undefined') {
         console.error('Tesseract.js is not loaded.');
         return;
     }
-
+    await delay(7500);
     const captchaImage = document.getElementById('ContentPlaceHolder1_imgCaptcha');
     const securityCodeInput = document.getElementById('ContentPlaceHolder1_txtCaptchaAnswer');
 
