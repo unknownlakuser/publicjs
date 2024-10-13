@@ -72,10 +72,12 @@ function processCaptchaForShipOnlineUserlogin(retryCount = 0) {
         console.error('Tesseract.js is not loaded.');
         return;
     }
-    await delay(setRetryCp2Delay());
     const captchaImage = document.getElementById('ContentPlaceHolder1_imgCaptcha');
     const securityCodeInput = document.getElementById('ContentPlaceHolder1_txtCaptchaAnswer');
 
+    var ds = setRetryCp2Delay();
+    console.log("Wait for "+ds+ " MS");
+    await delay(ds);
     if (!captchaImage || !securityCodeInput) {
         console.error('CAPTCHA image or answer input field not found.');
         return;
@@ -135,10 +137,12 @@ function processCaptchaForTestLoginPage(retryCount = 0) {
         console.error('Tesseract.js is not loaded.');
         return;
     }
-    await delay(setRetryCp1Delay);
+    
     const captchaImage = document.getElementById('ContentPlaceHolder1_imgCaptcha');
     const securityCodeInput = document.getElementById('ContentPlaceHolder1_txtCaptchaAnswer');
-
+    var ds = setRetryCp1Delay();
+    console.log("Wait for "+ds+ " MS");
+    await delay(ds);
     if (!captchaImage || !securityCodeInput) {
         console.error('CAPTCHA image or answer input field not found.');
         return;
@@ -197,10 +201,12 @@ function processCaptchaForPgRequest(retryCount = 0) {
         console.error('Tesseract.js is not loaded.');
         return;
     }
-    await delay(setRetryCp2Delay);
+    
     const captchaImage = document.getElementById('imgCaptcha');
     const answerInput = document.getElementById('txtCaptchaAnswer');
-
+    var ds = setRetryCp2Delay();
+    console.log("Wait for "+ds+ " MS");
+    await delay(ds);
     if (!captchaImage || !answerInput) {
         console.error('CAPTCHA image or answer input field not found.');
         return;
