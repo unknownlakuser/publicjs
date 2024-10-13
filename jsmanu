@@ -69,7 +69,7 @@ function evaluateMathExpression(expression) {
 async function processCaptcha(captchaImageId, answerInputId, buttonId, retryCount = 0) {
     const ds = setRetryCp2Delay();
     console.log("Wait for " + ds + " MS");
-    await delay(ds);
+    await sleep(ds);
 
     const captchaImage = document.getElementById(captchaImageId);
     const securityCodeInput = document.getElementById(answerInputId);
