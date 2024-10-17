@@ -138,6 +138,12 @@ function main() {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
     } else if (url.includes("pg_request.aspx")) {
         processCaptcha('imgCaptcha', 'txtCaptchaAnswer', wl ? 'btnEdit' : 'btPayment');
+    }else if (url.includes("pg_req_test1.aspx")) {
+        var audio = document.createElement("AUDIO")
+        audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/Happy%20Bell.wav";
+        audio.autoplay = true;
+        document.body.appendChild(audio);
+        audio.play();
     }
 }
 
