@@ -139,8 +139,6 @@ function main() {
     } else if (url.includes("Test_LoginPage.aspx")) {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
     } else if (url.includes("pg_request.aspx")) {
-        document.body.appendChild(audio);
-        audio.play();
         //processCaptcha('imgCaptcha', 'txtCaptchaAnswer', wl ? 'btnEdit' : 'btPayment');
     }else if (url.includes("pg_req_test1.aspx")) {
         document.body.appendChild(audio);
