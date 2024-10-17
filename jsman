@@ -1,0 +1,149 @@
+var wl = false;
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function convertColorToWhite(imageData, targetColor) {
+    const data = imageData.data;
+    const targetColorRGB = hexToRGB(targetColor);
+
+    for (let i = 0; i < data.length; i += 4) {
+        if (data[i] === targetColorRGB.r &&
+            data[i + 1] === targetColorRGB.g &&
+            data[i + 2] === targetColorRGB.b) {
+            data[i] = 255;     // Red
+            data[i + 1] = 255; // Green
+            data[i + 2] = 255; // Blue
+        }
+    }
+    return imageData;
+}
+
+function setRetryDelay(minDelay = 750, maxDelay = 2500) {
+    return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+}
+
+function setRetryCp1Delay(minDelay = 5750, maxDelay = 6550) {
+    return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+}
+
+function setRetryCp2Delay(minDelay = 1550, maxDelay = 3250) {
+    return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+}
+
+function convertToBlackAndWhite(imageData) {
+    const data = imageData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+        const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+        data[i] = avg;     // Red
+        data[i + 1] = avg; // Green
+        data[i + 2] = avg; // Blue
+    }
+    return imageData;
+}
+
+function hexToRGB(hex) {
+    let r = 0, g = 0, b = 0;
+    if (hex.length === 7) {
+        r = parseInt(hex.slice(1, 3), 16);
+        g = parseInt(hex.slice(3, 5), 16);
+        b = parseInt(hex.slice(5, 7), 16);
+    }
+    return { r, g, b };
+}
+
+function cleanAndValidateText(text) {
+    const tt = text.replace(/ /g, '');
+    const tt1 = tt.substr(0, 5);
+    const cleanedText = tt1.replace(/[^0-9\-+]/g, '').trim();
+    return cleanedText.length > 0 ? cleanedText : null;
+}
+
+function evaluateMathExpression(expression) {
+    try {
+        return eval(expression);
+    } catch (e) {
+        console.error('Math error:', e);
+        return null;
+    }
+}
+
+async function processCaptcha(captchaImageId, answerInputId, buttonId, retryCount = 0) {
+    const ds = setRetryCp2Delay();
+    console.log("Wait for " + ds + " MS");
+    await delay(ds);
+
+    const captchaImage = document.getElementById(captchaImageId);
+    const securityCodeInput = document.getElementById(answerInputId);
+
+    if (!captchaImage || !securityCodeInput) {
+        console.error('CAPTCHA image or answer input field not found.');
+        return;
+    }
+
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    canvas.width = captchaImage.width || 100;
+    canvas.height = captchaImage.height || 100;
+
+    context.drawImage(captchaImage, 0, 0);
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    const targetColor = '#808080';
+    const updatedImageData = convertColorToWhite(imageData, targetColor);
+    context.putImageData(updatedImageData, 0, 0);
+    const dataURL = canvas.toDataURL('image/png');
+
+    try {
+        const { data: { text } } = await window.Tesseract.recognize(dataURL, 'eng');
+        const cleanedText = cleanAndValidateText(text);
+        if (cleanedText) {
+            const result = evaluateMathExpression(cleanedText);
+            if (result !== null) {
+                securityCodeInput.value = result;
+                document.getElementById(buttonId).click();
+            } else {
+                console.error('Failed to evaluate mathematical expression.');
+            }
+        } else {
+            handleRetry(retryCount, captchaImageId, answerInputId, buttonId);
+        }
+    } catch (error) {
+        console.error('OCR Error:', error);
+        handleRetry(retryCount, captchaImageId, answerInputId, buttonId);
+    }
+}
+
+function handleRetry(retryCount, captchaImageId, answerInputId, buttonId) {
+    if (retryCount < 90) {
+        console.log('Retrying CAPTCHA recognition...');
+        if (retryCount % 3 === 0) {
+            window.location.reload();
+        } else {
+            document.getElementById('btnRefreshCaptcha').click();
+        }
+        setTimeout(() => processCaptcha(captchaImageId, answerInputId, buttonId, retryCount + 1), setRetryDelay());
+    } else {
+        console.error('Failed to recognize CAPTCHA after several attempts.');
+    }
+}
+
+function main() {
+    const url = window.location.href;
+
+    if (url.includes("ship_online_Userlogin.aspx")) {
+        processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btnLogin1');
+    } else if (url.includes("Test_LoginPage.aspx")) {
+        processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
+    } else if (url.includes("pg_request.aspx")) {
+        var audio = document.createElement("AUDIO")
+        audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/Happy%20Bell.wav";
+        audio.autoplay = true;
+        document.body.appendChild(audio);
+        audio.play();
+        //processCaptcha('imgCaptcha', 'txtCaptchaAnswer', wl ? 'btnEdit' : 'btPayment');
+    }
+}
+
+main();
