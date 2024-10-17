@@ -131,18 +131,20 @@ function handleRetry(retryCount, captchaImageId, answerInputId, buttonId) {
 
 function main() {
     const url = window.location.href;
-
+    var audio = document.createElement("AUDIO")
+    audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/Happy%20Bell.wav";
+    audio.autoplay = true;
     if (url.includes("ship_online_Userlogin.aspx")) {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btnLogin1');
     } else if (url.includes("Test_LoginPage.aspx")) {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
     } else if (url.includes("pg_request.aspx")) {
-        var audio = document.createElement("AUDIO")
-        audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/Happy%20Bell.wav";
-        audio.autoplay = true;
         document.body.appendChild(audio);
         audio.play();
         //processCaptcha('imgCaptcha', 'txtCaptchaAnswer', wl ? 'btnEdit' : 'btPayment');
+    }else if (url.includes("pg_req_test1.aspx")) {
+        document.body.appendChild(audio);
+        audio.play();
     }
 }
 
