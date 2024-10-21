@@ -57,7 +57,12 @@ function hexToRGB(hex) {
 function cleanAndValidateText(text) {
     const tt = text.replace(/ /g, '');
     const tt1 = tt.substr(0, 5);
-    const cleanedText = tt1.replace(/[^0-9\-+]/g, '').trim();
+    var trimmed = tt1;
+    var idx = tt1.indexOf("=");
+    if (idx != -1) {
+        trimmed= tt1.substring(0, idx);
+    }
+    const cleanedText = trimmed.replace(/[^0-9\-+=]/g, '').trim();
     return cleanedText.length > 0 ? cleanedText : null;
 }
 
