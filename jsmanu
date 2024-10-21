@@ -56,7 +56,7 @@ function hexToRGB(hex) {
 
 function cleanAndValidateText(text) {
     const tt = text.replace(/ /g, '');
-    const tt1 = tt.substr(0, 5);
+    const tt1 = tt.substr(0, 4);
     const cleanedText = tt1.replace(/[^0-9\-+]/g, '').trim();
     return cleanedText.length > 0 ? cleanedText : null;
 }
