@@ -142,16 +142,6 @@ function main() {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
     } else if (url.includes("Ship_online_SeatsAvailBetwnIsland.aspx")) {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
-        var timeout = setInterval(BtnClick, 2710);
-        function BtnClick() {
-          var Tp = document.getElementById('ContentPlaceHolder1_ddlTicketType');
-          for (var i = 0; i < Tp.options.length; i++) {if (Tp.options[i].text === Typ) {Tp.selectedIndex = i;break;}}
-          var Sc = document.getElementById('ContentPlaceHolder1_cmbSource');
-          for (var i = 0; i < Sc.options.length; i++) {if (Sc.options[i].text === Src) {Sc.selectedIndex = i;break;}}
-          var Dt = document.getElementById('ContentPlaceHolder1_CmbDest');
-          for (var i = 0; i < Dt.options.length; i++) {if (Dt.options[i].text === Dst) {Dt.selectedIndex = i;break;}}
-        }
-
     }else if (url.includes("pg_request.aspx")) {
         //processCaptcha('imgCaptcha', 'txtCaptchaAnswer', wl ? 'btnEdit' : 'btPayment');
     }else if (url.includes("pg_req_test1.aspx")) {
