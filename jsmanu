@@ -137,6 +137,20 @@ function handleRetry(retryCount, captchaImageId, answerInputId, buttonId) {
 function main() {
     const url = window.location.href;
     if (url.includes("ship_online_Userlogin.aspx")) {
+        //START
+        setInterval(T1, 3500);
+        function T1() {
+            if (document.querySelector("#ContentPlaceHolder1_lblError").innerHTML = "Services are affected due to excessive connections. Proceed with patience." && !document.getElementById('ContentPlaceHolder1_txtUsername1')) {
+                window.location = window.location.href;
+            } else {
+                var audio = document.createElement("AUDIO")
+                audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/Happy%20Bell.wav";
+                audio.autoplay = true;
+                document.body.appendChild(audio);
+                audio.play();
+            }
+        }
+        //END
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btnLogin1');
     } else if (url.includes("Test_LoginPage.aspx")) {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
