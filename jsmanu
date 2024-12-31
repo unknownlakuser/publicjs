@@ -142,9 +142,9 @@ function main() {
         function T1() {
             if (document.querySelector("#ContentPlaceHolder1_lblError").innerHTML = "Services are affected due to excessive connections. Proceed with patience." && !document.getElementById('ContentPlaceHolder1_txtUsername1')) {
                 window.location = window.location.href;
-            } else {
+            } else if(!document.getElementById('ContentPlaceHolder1_txtUsername1')){
                 var audio = document.createElement("AUDIO")
-                audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/Happy%20Bell.wav";
+                audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/msStart.mp3";
                 audio.autoplay = true;
                 document.body.appendChild(audio);
                 audio.play();
