@@ -140,16 +140,14 @@ function main() {
         //START
         setInterval(T1, 3500);
         function T1() {
-            if (document.querySelector("#ContentPlaceHolder1_lblError").innerHTML = "Services are affected due to excessive connections. Proceed with patience." && !document.getElementById('ContentPlaceHolder1_txtUsername1')) {
+            if (document.querySelector("#ContentPlaceHolder1_lblError").innerHTML.includes("Services are affected") && !document.getElementById('ContentPlaceHolder1_imgCaptcha')) {
                 window.location = window.location.href;
-            } else{
-                if(!document.getElementById('ContentPlaceHolder1_imgCaptcha'){
+            } if(!document.querySelector("#ContentPlaceHolder1_lblError").innerHTML.includes("Services are affected") && !document.getElementById('ContentPlaceHolder1_imgCaptcha')){
                     var audio = document.createElement("AUDIO")
                     audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/msStart.mp3";
                     audio.autoplay = true;
                     document.body.appendChild(audio);
                     audio.play();
-                }
             }
         }
         //END
