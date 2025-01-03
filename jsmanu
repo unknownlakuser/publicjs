@@ -142,14 +142,15 @@ function main() {
         function T1() {
             if (document.querySelector("#ContentPlaceHolder1_lblError").innerHTML.includes("Services are affected") && !document.getElementById('ContentPlaceHolder1_imgCaptcha')) {
                 window.location = window.location.href;
-            } if(!document.querySelector("#ContentPlaceHolder1_lblError").innerHTML.includes("Services are affected") && !document.getElementById('ContentPlaceHolder1_imgCaptcha')){
-                    var audio = document.createElement("AUDIO")
-                    audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/msStart.mp3";
-                    audio.autoplay = true;
-                    document.body.appendChild(audio);
-                    audio.play();
             }
         }
+        //if(!document.querySelector("#ContentPlaceHolder1_lblError").innerHTML.includes("Services are affected") && !document.getElementById('ContentPlaceHolder1_imgCaptcha')){
+        //            var audio = document.createElement("AUDIO")
+        //            audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/msStart.mp3";
+        //            audio.autoplay = true;
+        //            document.body.appendChild(audio);
+        //            audio.play();
+        //    }
         //END
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btnLogin1');
     } else if (url.includes("Test_LoginPage.aspx")) {
