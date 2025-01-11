@@ -142,7 +142,23 @@ function main() {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
     } else if (url.includes("Ship_online_SeatsAvailBetwnIsland.aspx")) {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
-    }else if (url.includes("pg_request.aspx")) {
+
+        var ti = setInterval(Btloop, 1050);
+        function Btloop() {
+          var chk =document.getElementById('ContentPlaceHolder1_ctl0'+pos+'_seats_dgrid');table = document.getElementById('ContentPlaceHolder1_ctl0'+pos+'_seats_dgrid');
+        	tr = table.getElementsByTagName("tr");td3 = tr[1].getElementsByTagName("td")[0];var e = td3.innerText;var j=0, k=0;
+        	for (var i = 0; i < 8; i++) {td2 = tr[0].getElementsByTagName("td")[i];var tcchk2= td2.innerText;if (tcchk2 === "Stop") {break;}else{j++;}if(tcchk2 === Clss){k=j-1;}}
+        	td = tr[1].getElementsByTagName("td")[k];var tcchk= td.innerText;
+          if(chk != null){if(tcchk != 0){
+              var audio = document.createElement("AUDIO")
+              audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/Happy%20Bell.wav";
+              audio.autoplay = true;
+              document.body.appendChild(audio);
+              audio.play();
+          }}
+        }
+
+}else if (url.includes("pg_request.aspx")) {
         //processCaptcha('imgCaptcha', 'txtCaptchaAnswer', wl ? 'btnEdit' : 'btPayment');
     }else if (url.includes("pg_req_test1.aspx")) {
         var audio = document.createElement("AUDIO")
