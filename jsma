@@ -168,7 +168,7 @@ function main() {
                 }
             }
 
-            //Second
+            //Second 
             if(pos2!=null){
                 var chk2 =document.getElementById('ContentPlaceHolder1_ctl0'+pos2+'_seats_dgrid');
                 if(chk2 != null){
