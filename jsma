@@ -151,35 +151,39 @@ function main() {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
         //var ti = setInterval(Btloop, 1050);
         function Btloop() {
-          var chk =document.getElementById('ContentPlaceHolder1_ctl0'+pos+'_seats_dgrid');
-            if(chk != null){
-                table = document.getElementById('ContentPlaceHolder1_ctl0'+pos+'_seats_dgrid');
-        	    tr = table.getElementsByTagName("tr");td3 = tr[1].getElementsByTagName("td")[0];var e = td3.innerText;var j=0, k=0;
-        	    for (var i = 0; i < 8; i++) {td2 = tr[0].getElementsByTagName("td")[i];var tcchk2= td2.innerText;if (tcchk2 === "Stop") {break;}else{j++;}if(tcchk2 === Clss){k=j-1;}}
-        	    td = tr[1].getElementsByTagName("td")[k];var tcchk= td.innerText;
-              if(isvalid(tcchk)){
-                  var audio = document.createElement("AUDIO")
-                  audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/Happy%20Bell.wav";
-                  audio.autoplay = true;
-                  document.body.appendChild(audio);
-                  audio.play();
-              }
+            if(pos!=null){
+              var chk =document.getElementById('ContentPlaceHolder1_ctl0'+pos+'_seats_dgrid');
+                if(chk != null){
+                    table = document.getElementById('ContentPlaceHolder1_ctl0'+pos+'_seats_dgrid');
+            	    tr = table.getElementsByTagName("tr");td3 = tr[1].getElementsByTagName("td")[0];var e = td3.innerText;var j=0, k=0;
+            	    for (var i = 0; i < 8; i++) {td2 = tr[0].getElementsByTagName("td")[i];var tcchk2= td2.innerText;if (tcchk2 === "Stop") {break;}else{j++;}if(tcchk2 === Clss){k=j-1;}}
+            	    td = tr[1].getElementsByTagName("td")[k];var tcchk= td.innerText;
+                  if(isvalid(tcchk)){
+                      var audio = document.createElement("AUDIO")
+                      audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/Happy%20Bell.wav";
+                      audio.autoplay = true;
+                      document.body.appendChild(audio);
+                      audio.play();
+                  }
+                }
             }
 
             //Second
-            var chk2 =document.getElementById('ContentPlaceHolder1_ctl0'+pos2+'_seats_dgrid');
-            if(chk2 != null){
-                table2 = document.getElementById('ContentPlaceHolder1_ctl0'+pos2+'_seats_dgrid');
-        	    tr2 = table2.getElementsByTagName("tr");td32 = tr[1].getElementsByTagName("td")[0];var e2 = td32.innerText;var j=0, k=0;
-        	    for (var i = 0; i < 8; i++) {td22 = tr2[0].getElementsByTagName("td")[i];var tcchk21= td22.innerText;if (tcchk21 === "Stop") {break;}else{j++;}if(tcchk21 === Clss){k=j-1;}}
-        	    td2 = tr2[1].getElementsByTagName("td")[k];var tcchk22= td2.innerText;
-              if(isvalid(tcchk22)){
-                  var audio = document.createElement("AUDIO")
-                  audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/Happy%20Bell.wav";
-                  audio.autoplay = true;
-                  document.body.appendChild(audio);
-                  audio.play();
-              }
+            if(pos2!=null){
+                var chk2 =document.getElementById('ContentPlaceHolder1_ctl0'+pos2+'_seats_dgrid');
+                if(chk2 != null){
+                    table2 = document.getElementById('ContentPlaceHolder1_ctl0'+pos2+'_seats_dgrid');
+            	    tr2 = table2.getElementsByTagName("tr");td32 = tr[1].getElementsByTagName("td")[0];var e2 = td32.innerText;var j=0, k=0;
+            	    for (var i = 0; i < 8; i++) {td22 = tr2[0].getElementsByTagName("td")[i];var tcchk21= td22.innerText;if (tcchk21 === "Stop") {break;}else{j++;}if(tcchk21 === Clss){k=j-1;}}
+            	    td2 = tr2[1].getElementsByTagName("td")[k];var tcchk22= td2.innerText;
+                  if(isvalid(tcchk22)){
+                      var audio = document.createElement("AUDIO")
+                      audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/Happy%20Bell.wav";
+                      audio.autoplay = true;
+                      document.body.appendChild(audio);
+                      audio.play();
+                  }
+                }
             }
         }Btloop();
 
