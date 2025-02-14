@@ -157,15 +157,15 @@ async function processCaptcha(captchaImageId, answerInputId, retryCount = 0) {
                 console.error('Failed to evaluate mathematical expression.');
             }
         } else {
-            handleRetry(retryCount, captchaImageId, answerInputId, buttonId);
+            handleRetry(retryCount, captchaImageId, answerInputId);
         }
     } catch (error) {
         console.error('OCR Error:', error);
-        handleRetry(retryCount, captchaImageId, answerInputId, buttonId);
+        handleRetry(retryCount, captchaImageId, answerInputId);
     }
 }
 
-function handleRetry(retryCount, captchaImageId, answerInputId, buttonId) {
+function handleRetry(retryCount, captchaImageId, answerInputId) {
     if (retryCount < 90) {
         console.log('Retrying CAPTCHA recognition...');
         if (retryCount % 3 === 0) {
@@ -173,7 +173,7 @@ function handleRetry(retryCount, captchaImageId, answerInputId, buttonId) {
         } else {
             document.getElementById('btnRefreshCaptcha').click();
         }
-        setTimeout(() => processCaptcha(captchaImageId, answerInputId, buttonId, retryCount + 1), setRetryDelay());
+        setTimeout(() => processCaptcha(captchaImageId, answerInputId, retryCount + 1), setRetryDelay());
     } else {
         console.error('Failed to recognize CAPTCHA after several attempts.');
     }
