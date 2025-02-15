@@ -181,6 +181,11 @@ function handleRetry(retryCount, captchaImageId, answerInputId) {
 
 function main() {
     const url = window.location.href;
+    document.addEventListener('DOMContentLoaded', function() {
+    	if(document.querySelector("h1").innerHTML.includes('Server Error')){ window.location.reload();
+    }
+    });
+    
     if (url.includes("ship_online_Userlogin.aspx")) {
         setInterval(T1, 3500);
         function T1() {
