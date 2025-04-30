@@ -187,7 +187,7 @@ function main() {
     });
     
     if (url.includes("ship_online_Userlogin.aspx")) {
-        setInterval(T1, 3500);
+        setInterval(T1, 18500);
         function T1() {
             if (document.querySelector("#ContentPlaceHolder1_lblError").innerHTML.includes("Services are affected") && !document.getElementById('ContentPlaceHolder1_imgCaptcha')) {
                 window.location = window.location.href;
