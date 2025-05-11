@@ -20,7 +20,7 @@ function convertColorToWhite(imageData, targetColor) {
     return imageData;
 }
 
-function setRetryDelay(minDelay = 50, maxDelay = 2500) {
+function setRetryDelay(minDelay = 50, maxDelay = 1200) {
     return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
 }
 
