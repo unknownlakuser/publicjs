@@ -20,7 +20,7 @@ function convertColorToWhite(imageData, targetColor) {
     return imageData;
 }
 
-function setRetryDelay(minDelay = 750, maxDelay = 2500) {
+function setRetryDelay(minDelay = 50, maxDelay = 2500) {
     return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
 }
 
@@ -28,7 +28,7 @@ function setRetryCp1Delay(minDelay = 13750, maxDelay = 15550) {
     return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
 }
 
-function setRetryCp2Delay(minDelay = 500, maxDelay = 750) {
+function setRetryCp2Delay(minDelay = 50, maxDelay = 300) {
     return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
 }
 
