@@ -24,7 +24,7 @@ function setRetryDelay(minDelay = 750, maxDelay = 2500) {
     return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
 }
 
-function setRetryCp1Delay(minDelay = 13750, maxDelay = 16550) {
+function setRetryCp1Delay(minDelay = 10750, maxDelay = 12550) {
     return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
 }
 
