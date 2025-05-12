@@ -120,6 +120,50 @@ async function processCaptcha(captchaImageId, answerInputId, buttonId, retryCoun
     }
 }
 
+async function processCaptcha2(captchaImageId, answerInputId, buttonId, retryCount = 0) {
+    const ds = setRetryCp2Delay();
+    console.log("Wait for " + ds + " MS");
+    await delay(ds);
+
+    const captchaImage = document.getElementById(captchaImageId);
+    const securityCodeInput = document.getElementById(answerInputId);
+
+    if (!captchaImage || !securityCodeInput) {
+        console.error('CAPTCHA image or answer input field not found.');
+        return;
+    }
+
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    canvas.width = captchaImage.width || 100;
+    canvas.height = captchaImage.height || 100;
+
+    context.drawImage(captchaImage, 0, 0);
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    const targetColor = '#808080';
+    const updatedImageData = convertColorToWhite(imageData, targetColor);
+    context.putImageData(updatedImageData, 0, 0);
+    const dataURL = canvas.toDataURL('image/png');
+
+    try {
+        const { data: { text } } = await window.Tesseract.recognize(dataURL, 'eng');
+        const cleanedText = cleanAndValidateText(text);
+        if (cleanedText) {
+            const result = evaluateMathExpression(cleanedText);
+            if (result !== null) {
+                securityCodeInput.value = result;
+            } else {
+                console.error('Failed to evaluate mathematical expression.');
+            }
+        } else {
+            handleRetry(retryCount, captchaImageId, answerInputId, buttonId);
+        }
+    } catch (error) {
+        console.error('OCR Error:', error);
+        handleRetry(retryCount, captchaImageId, answerInputId, buttonId);
+    }
+}
+
 function handleRetry(retryCount, captchaImageId, answerInputId, buttonId) {
     if (retryCount < 90) {
         console.log('Retrying CAPTCHA recognition...');
@@ -141,7 +185,7 @@ function main() {
     } else if (url.includes("Test_LoginPage.aspx")) {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
     } else if (url.includes("pg_request.aspx")) {
-        //processCaptcha('imgCaptcha', 'txtCaptchaAnswer', wl ? 'btnEdit' : 'btPayment');
+        processCaptcha2('imgCaptcha', 'txtCaptchaAnswer', wl ? 'btnEdit' : 'btPayment');
     }else if (url.includes("pg_req_test1.aspx")) {
         var audio = document.createElement("AUDIO")
         audio.src = "https://github.com/unknownlakuser/publicjs/raw/main/Happy%20Bell.wav";
