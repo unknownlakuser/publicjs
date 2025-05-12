@@ -24,7 +24,7 @@ function setRetryDelay(minDelay = 3750, maxDelay = 5500) {
     return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
 }
 
-function setRetryCp1Delay(minDelay = 10750, maxDelay = 12550) {
+function setRetryCp1Delay(minDelay = 25, maxDelay = 550) {
     return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
 }
 
@@ -121,7 +121,7 @@ async function processCaptcha(captchaImageId, answerInputId, buttonId, retryCoun
 }
 
 async function processCaptcha2(captchaImageId, answerInputId, buttonId, retryCount = 0) {
-    const ds = setRetryCp2Delay();
+    const ds = setRetryCp1Delay();
     console.log("Wait for " + ds + " MS");
     await delay(ds);
 
