@@ -1,5 +1,6 @@
 {
   "versionCode": 1,
-  "apkUrl": "https://raw.githubusercontent.com/unknownlakuser/publicjs/refs/heads/main/App/update.apk",
-  "releaseNotes": "Bug fixes and performance improvements."
+  "versionName": "1.0",
+  "releaseNotes": "Bug fixes and performance improvements.",
+  "downloadUrl": "https://raw.githubusercontent.com/unknownlakuser/publicjs/refs/heads/main/App/update.apk"
 }
