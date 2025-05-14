@@ -24,11 +24,11 @@ function setRetryDelay(minDelay = 50, maxDelay = 1200) {
     return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
 }
 
-function setRetryCp1Delay(minDelay = 13750, maxDelay = 15550) {
+function setRetryCp1Delay(minDelay = 750, maxDelay = 1550) {
     return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
 }
 
-function setRetryCp2Delay(minDelay = 50, maxDelay = 300) {
+function setRetryCp2Delay(minDelay = 0, maxDelay = 20) {
     return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
 }
 
@@ -76,7 +76,7 @@ function evaluateMathExpression(expression) {
 }
 
 async function processCaptcha(captchaImageId, answerInputId, buttonId, retryCount = 0) {
-    const ds = setRetryCp2Delay();
+    const ds = etRetryCp1Delay();
     console.log("Wait for " + ds + " MS");
     await delay(ds);
 
