@@ -147,7 +147,7 @@ function main() {
     } else if (url.includes("Test_LoginPage.aspx")) {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
     } else if (url.includes("ship_online_ticketstatus.aspx")) {
-        processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer');
+        processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
     }else if (url.includes("Ship_online_SeatsAvailBetwnIsland.aspx")) {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
         //var ti = setInterval(Btloop, 1050);
