@@ -126,6 +126,51 @@ async function processCaptcha(captchaImageId, answerInputId, buttonId, retryCoun
     }
 }
 
+async function processCaptcha(captchaImageId, answerInputId, retryCount = 0) {
+    const ds = setRetryCp2Delay();
+    console.log("Wait for " + ds + " MS");
+    await delay(ds);
+
+    const captchaImage = document.getElementById(captchaImageId);
+    const securityCodeInput = document.getElementById(answerInputId);
+
+    if (!captchaImage || !securityCodeInput) {
+        console.error('CAPTCHA image or answer input field not found.');
+        return;
+    }
+
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    canvas.width = captchaImage.width || 100;
+    canvas.height = captchaImage.height || 100;
+
+    context.drawImage(captchaImage, 0, 0);
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    const targetColor = '#808080';
+    const updatedImageData = convertColorToWhite(imageData, targetColor);
+    context.putImageData(updatedImageData, 0, 0);
+    const dataURL = canvas.toDataURL('image/png');
+
+    try {
+        const { data: { text } } = await window.Tesseract.recognize(dataURL, 'eng');
+        const cleanedText = cleanAndValidateText(text);
+        if (cleanedText) {
+            const result = evaluateMathExpression(cleanedText);
+            if (result !== null) {
+                securityCodeInput.value = result;
+                document.getElementById(buttonId).click();
+            } else {
+                console.error('Failed to evaluate mathematical expression.');
+            }
+        } else {
+            handleRetry(retryCount, captchaImageId, answerInputId, buttonId);
+        }
+    } catch (error) {
+        console.error('OCR Error:', error);
+        handleRetry(retryCount, captchaImageId, answerInputId, buttonId);
+    }
+}
+
 function handleRetry(retryCount, captchaImageId, answerInputId, buttonId) {
     if (retryCount < 90) {
         console.log('Retrying CAPTCHA recognition...');
@@ -147,7 +192,7 @@ function main() {
     } else if (url.includes("Test_LoginPage.aspx")) {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
     } else if (url.includes("ship_online_ticketstatus.aspx")) {
-        processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
+        processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer');
     }else if (url.includes("Ship_online_SeatsAvailBetwnIsland.aspx")) {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
         //var ti = setInterval(Btloop, 1050);
