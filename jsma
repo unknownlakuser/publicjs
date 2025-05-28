@@ -162,11 +162,11 @@ async function processCaptcha(captchaImageId, answerInputId, retryCount = 0) {
                 console.error('Failed to evaluate mathematical expression.');
             }
         } else {
-            handleRetry(retryCount, captchaImageId, answerInputId, buttonId);
+            handleRetry(retryCount, captchaImageId, answerInputId);
         }
     } catch (error) {
         console.error('OCR Error:', error);
-        handleRetry(retryCount, captchaImageId, answerInputId, buttonId);
+        handleRetry(retryCount, captchaImageId, answerInputId);
     }
 }
 
