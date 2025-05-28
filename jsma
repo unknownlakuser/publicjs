@@ -158,7 +158,6 @@ async function processCaptcha(captchaImageId, answerInputId, retryCount = 0) {
             const result = evaluateMathExpression(cleanedText);
             if (result !== null) {
                 securityCodeInput.value = result;
-                document.getElementById(buttonId).click();
             } else {
                 console.error('Failed to evaluate mathematical expression.');
             }
