@@ -41,7 +41,6 @@ function setRetryCp2Delay(minDelay = 250, maxDelay = 550) {
 
 function convertToBlackAndWhite(imageData) {
     const data = imageData.data;
-
     for (let i = 0; i < data.length; i += 4) {
         const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
         data[i] = avg;     // Red
@@ -147,7 +146,9 @@ function main() {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btnLogin1');
     } else if (url.includes("Test_LoginPage.aspx")) {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
-    } else if (url.includes("Ship_online_SeatsAvailBetwnIsland.aspx")) {
+    } else if (url.includes("ship_online_ticketstatus.aspx")) {
+        processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer');
+    }else if (url.includes("Ship_online_SeatsAvailBetwnIsland.aspx")) {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
         //var ti = setInterval(Btloop, 1050);
         function Btloop() {
@@ -218,8 +219,7 @@ function main() {
                 }
             }
         }Btloop();
-
-}
+   }
 }
 
 main();
