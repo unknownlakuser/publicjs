@@ -126,7 +126,7 @@ async function processCaptcha(captchaImageId, answerInputId, buttonId, retryCoun
     }
 }
 
-async function processCaptcha(captchaImageId, answerInputId, retryCount = 0) {
+async function processCaptcha2(captchaImageId, answerInputId, retryCount = 0) {
     const ds = setRetryCp2Delay();
     console.log("Wait for " + ds + " MS");
     await delay(ds);
@@ -162,11 +162,11 @@ async function processCaptcha(captchaImageId, answerInputId, retryCount = 0) {
                 console.error('Failed to evaluate mathematical expression.');
             }
         } else {
-            //handleRetry(retryCount, captchaImageId, answerInputId);
+            
         }
     } catch (error) {
         console.error('OCR Error:', error);
-        //handleRetry(retryCount, captchaImageId, answerInputId);
+        
     }
 }
 
@@ -191,7 +191,7 @@ function main() {
     } else if (url.includes("Test_LoginPage.aspx")) {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
     } else if (url.includes("ship_online_ticketstatus.aspx")) {
-        processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer');
+        processCaptcha2('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer');
     }else if (url.includes("Ship_online_SeatsAvailBetwnIsland.aspx")) {
         processCaptcha('ContentPlaceHolder1_imgCaptcha', 'ContentPlaceHolder1_txtCaptchaAnswer', 'ContentPlaceHolder1_btn_view');
         //var ti = setInterval(Btloop, 1050);
