@@ -141,7 +141,7 @@ function main() {
         setInterval(T1, 3500);
         function T1() {
             if (document.querySelector("#ContentPlaceHolder1_lblError").innerHTML.includes("Services are affected") && !document.getElementById('ContentPlaceHolder1_imgCaptcha')) {
-                window.location = window.location.href;
+                //window.location = window.location.href;
             }
         }
         //if(!document.querySelector("#ContentPlaceHolder1_lblError").innerHTML.includes("Services are affected") && !document.getElementById('ContentPlaceHolder1_imgCaptcha')){
