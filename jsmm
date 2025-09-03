@@ -5,7 +5,10 @@ function delay(ms) {
 }
 
 function isvalid(val){
-  if(isNaturalNumber(val)){ if(val==='140'){return false;}else{return true}}else if(val ==="W/L"){return true;}else{return false;}
+   if(val==="140"){return false;}
+   else{
+     if(isNaturalNumber(val)){return true;}else if(val ==="W/L"){return true;}else{return false;}
+   }
 }
 
 function isNaturalNumber(value) {
